@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initiate Scan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="container scanner-container">
+        <h1 class="glitch" data-text="Initiate Scan">Initiate Scan</h1>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" enctype="multipart/form-data">
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Face Image:</label>
+                <input type="file" name="face_file" accept=".jpg,.jpeg,.png" required style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Name:</label>
+                <input type="text" name="name" required style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Age:</label>
+                <input type="number" name="age" required style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Gender:</label>
+                <input type="text" name="gender" required style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Last Seen Location:</label>
+                <input type="text" name="last_seen_location" required style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Last Seen Date (YYYY-MM-DD):</label>
+                <input type="text" name="last_seen_date" required style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Last Seen Time (HH:MM, optional):</label>
+                <input type="text" name="last_seen_time" style="flex-grow: 1;">
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <label style="width: 250px; flex-shrink: 0;">> Contact Number:</label>
+                <input type="text" name="contact_number" required style="flex-grow: 1;">
+            </div>
+            <button type="submit" class="action-button">> Execute Scan</button>
+        </form>
+        
+        <a href="{{ url_for('index') }}" class="action-button">> Return to Mainframe</a>
+    </div>
+    <div class="hud-overlay"></div>
+</body>
+</html>

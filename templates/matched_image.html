@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}FACE MATCH FOUND{% endblock %}
+{% block status %}MATCH CONFIRMED{% endblock %}
+
+{% block content %}
+<div class="matched-container">
+    <h1 class="match-title">FACE MATCH CONFIRMED</h1>
+    <div class="match-confidence">CONFIDENCE: {{ confidence }}</div>
+    <img src="data:image/jpeg;base64,{{ matched_image }}" alt="Matched Face" class="match-image">
+    <a href="/" class="back-button">NEW SCAN</a>
+</div>
+{% endblock %}

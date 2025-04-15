@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="container result-container">
+        <h1 class="glitch" data-text="MATCH CONFIRMED">MATCH CONFIRMED</h1>
+        <div class="hud-overlay"></div>
+        <p>> Confidence: {{ confidence }}</p>
+        <p>> Scan Date: {{ scan_date }}</p>
+        <p>> Scan Time: {{ scan_time }}</p>
+        <p>> Current Time: {{ current_time }}</p>
+        <p>> System Version: {{ version }}</p>
+        {% if matched_file_id %}
+            <a href="{{ url_for('download_file', file_id=matched_file_id) }}" class="download-button">> Download Matched Image</a>
+        {% endif %}
+        <a href="{{ url_for('index') }}">> Return to Mainframe</a>
+    </div>
+</body>
+</html>

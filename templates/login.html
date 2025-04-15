@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <canvas id="digital-rain"></canvas>
+    <div class="scanlines"></div>
+    <div class="container scanner-container">
+        <h1 class="glitch" data-text="Operator Login">Operator Login</h1>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" class="terminal-form">
+            <p><label>> Username: <input type="text" name="username" required></label></p>
+            <p><label>> Password: <input type="password" name="password" required></label></p>
+            <button type="submit" class="action-button">> Login</button>
+        </form>
+        
+        <a href="{{ url_for('register') }}" class="action-button">> Register</a>
+        <div class="binary" id="binary-bg"></div>
+        <div class="terminal-log" id="terminal-log">
+            <p>> [INFO] Login module active</p>
+            <p>> [INFO] Enter credentials to proceed</p>
+        </div>
+    </div>
+    <div class="hud-overlay"></div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Simulate login system updates
+        const terminalLog = document.getElementById('terminal-log');
+        const messages = [
+            '> [INFO] Verifying network connection...',
+            '> [INFO] Security protocols engaged',
+            '> [INFO] Awaiting user input...'
+        ];
+        setInterval(() => {
+            const p = document.createElement('p');
+            p.textContent = messages[Math.floor(Math.random() * messages.length)];
+            terminalLog.appendChild(p);
+            terminalLog.scrollTop = terminalLog.scrollHeight;
+        }, 5000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'930a3d403e66457e',t:'MTc0NDcwNzQ4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

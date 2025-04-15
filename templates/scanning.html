@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanning...</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <canvas id="digital-rain"></canvas>
+    <div class="scanlines"></div>
+    <div class="scanner-container">
+        <h1 class="glitch" data-text="Biometric Scan Initiated">Biometric Scan Initiated</h1>
+        <div class="video-container">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="overlay"></canvas>
+        </div>
+        <div class="data-stream">
+            <p id="status">> Initializing Camera...</p>
+            <p id="confidence">> Confidence: 0%</p>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        {% if session['scan_data'] and session['scan_data']['reference_file_id'] %}
+            <a href="{{ url_for('download_file', file_id=session['scan_data']['reference_file_id']) }}" class="download-button">> Download Reference Image</a>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Trigger backend scan processing
+        setTimeout(() => {
+            window.location.href = "{{ url_for('scanning') }}";
+        }, 30000); // Match backend timeout (30s)
+    </script>
+</body>
+</html>

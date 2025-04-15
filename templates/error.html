@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="container result-container">
+        <h1 class="glitch" data-text="ERROR">ERROR</h1>
+        <div class="hud-overlay"></div>
+        <p>> Message: {{ message }}</p>
+        <p>> Suggestion: {{ suggestion }}</p>
+        <p>> Current Time: {{ current_time }}</p>
+        <p>> System Version: {{ version }}</p>
+        <a href="{{ url_for('index') }}">> Return to Mainframe</a>
+    </div>
+</body>
+</html>

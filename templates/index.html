@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceScan360</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <canvas id="digital-rain"></canvas>
+    <div class="scanlines"></div>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1 class="glitch" data-text="FaceScan360">FaceScan360</h1>
+            <div class="user-info">
+                <p>> Operator: {{ username }}</p>
+                <p>> System Time: {{ current_time }}</p>
+                <p>> Version: {{ version }}</p>
+            </div>
+        </div>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="dashboard-grid">
+            <div class="card scan-card">
+                <h3 class="glitch" data-text="Initiate Scan">Initiate Scan</h3>
+                <p>> Begin biometric analysis</p>
+                <a href="{{ url_for('scan') }}" class="action-button">> Execute</a>
+            </div>
+            <div class="card reports-card">
+                <h3 class="glitch" data-text="Access Archives">Access Archives</h3>
+                <p>> Review past scans</p>
+                <a href="{{ url_for('reports') }}" class="action-button">> Retrieve</a>
+            </div>
+            <div class="card stats-card">
+                <h3 class="glitch" data-text="System Status">System Status</h3>
+                <p id="scan-count">> Scans: 0</p>
+                <p id="uptime">> Uptime: 0s</p>
+                <p>> Memory: Optimal</p>
+            </div>
+            <div class="card logout-card">
+                <h3 class="glitch" data-text="Disconnect">Disconnect</h3>
+                <p>> Terminate session</p>
+                <a href="{{ url_for('logout') }}" class="action-button">> Exit</a>
+            </div>
+        </div>
+        
+        <div class="hud-overlay"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

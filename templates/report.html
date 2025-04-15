@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Archives</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <canvas id="digital-rain"></canvas>
+    <div class="scanlines"></div>
+    <div class="container reports-container">
+        <h1 class="glitch" data-text="Scan Archives">Scan Archives</h1>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        {% if reports %}
+            <table class="reports-table">
+                <thead>
+                    <tr>
+                        <th>> ID</th>
+                        <th>> Name</th>
+                        <th>> Confidence</th>
+                        <th>> Scan Date</th>
+                        <th>> Scan Time</th>
+                        <th>> Reference Image</th>
+                        <th>> Matched Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                        <tr>
+                            <td>{{ report._id | truncate(8, True, '...') }}</td>
+                            <td>{{ report.missing_person.name }}</td>
+                            <td>{{ report.confidence | float | round(2) }}%</td>
+                            <td>{{ report.scan_date }}</td>
+                            <td>{{ report.scan_time }}</td>
+                            <td>
+                                {% if report.reference_file_id %}
+                                    <a href="{{ url_for('download_file', file_id=report.reference_file_id) }}" class="download-button">> Download Reference</a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if report.matched_file_id %}
+                                    <a href="{{ url_for('download_file', file_id=report.matched_file_id) }}" class="download-button">> Download Matched</a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-reports">> No scans found in database. Initiate a new scan to populate archives.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('index') }}" class="action-button">> Return to Mainframe</a>
+    </div>
+    <div class="hud-overlay"></div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
