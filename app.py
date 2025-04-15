@@ -107,7 +107,7 @@ def scan():
         return redirect(url_for('login'))
     
     if request.method == 'POST':
-        # Check for file
+        # Check for file 123
         if 'face_file' not in request.files:
             return render_template('error.html',
                                 message="No file selected",
